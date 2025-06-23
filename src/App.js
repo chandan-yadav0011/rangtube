@@ -6,7 +6,7 @@ import Body from './components/Body';
 function App() {
   return (
     <div>
-        Building RangTube
+    
         <Header/>
         <Body/>
     </div>
