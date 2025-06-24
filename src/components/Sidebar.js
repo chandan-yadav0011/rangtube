@@ -1,11 +1,16 @@
+import { useSelector } from "react-redux";
 
 
 const Sidebar = ()=>{
 
     const sideBarList=["Home", "You", "Subscriptions","Shorts", "Subscription","Playlist","Your videos", "History","Liked videos","Liked videos","Liked videos","Liked videos","Liked videos","Liked videos","Liked videos","Liked videos"]
     
+     const isVisible = useSelector(store=>store.sideBar.isMenuOpen);
+
+     if(!isVisible) return null;
+
     return (
-        <div className="p-2  w-[1400px] border-2 overflow-y-scroll h-[800px]">
+        <div className="p-2  w-48 border-2 overflow-y-scroll h-full">
 
             
           

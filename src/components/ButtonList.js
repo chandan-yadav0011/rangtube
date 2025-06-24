@@ -9,7 +9,7 @@ const ButtonList = () => {
       <ul className='flex'>
       {
         buttonListData.map((ele,indx)=>{
-          return <li className='p-2 bg-slate-200 m-3 rounded-md text-xs font-semibold '>{ele}</li>
+          return <li key={indx} className='p-2 hover:bg-black hover:text-white  bg-slate-200 m-3 rounded-md text-xs font-semibold '>{ele}</li>
         })
       }
       </ul>

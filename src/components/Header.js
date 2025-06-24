@@ -1,14 +1,29 @@
+import { useDispatch } from "react-redux";
+import { toggle } from "../utils/Slices/SideBarSlice";
 const Header = ()=>{
+
+
+
+    const dispatch = useDispatch();
+     
+    const handleToggleMenu=()=>{
+        console.log("action done")
+   
+        dispatch(toggle());
+    }
+
+
     return (
         <div className="p-2 m-2 flex justify-between shadow-lg">
             <div className="flex ">
                 <img 
                     alt="menu"
-                    className=" h-8" src="https://icons.veryicon.com/png/o/miscellaneous/linear-icon-45/hamburger-menu-5.png"/>
-
+                    onClick={()=>handleToggleMenu()}
+                    className="cursor-pointer h-8" src="https://icons.veryicon.com/png/o/miscellaneous/linear-icon-45/hamburger-menu-5.png"/>
+                
                 <img 
                     alt="play button"
-                    className="h-8 pl-5" src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_play_button_icon_%282013%E2%80%932017%29.svg"/>
+                    className="h-8 pl-5" src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_play_button_icon_%282013%E2%80%932017%29.svg"></img>
 
                 <h2 className=" text-3xl font-serif font-semibold">RangTube</h2>
             </div>

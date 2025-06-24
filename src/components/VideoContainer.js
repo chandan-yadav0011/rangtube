@@ -1,13 +1,41 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { YOUTUBE_VIDEO_API } from '../utils/contants'
+import VideoCard from './VideoCard';
+import { Link } from 'react-router-dom';
 
 const VideoContainer = () => {
 
-  const videoData=["v1","v2","v3","v4","v4","v4","v4","v4","v4","v4","v4","v4","v4","v4","v4","v4","v4","v4","v4","v4","v4","v4","v4","v4","v4","v4","v4"]
+  const[videoData,setVideoData] = useState([]);
+    
+  
+  async function getData(){
+    console.log(YOUTUBE_VIDEO_API)
+     const data = await fetch(YOUTUBE_VIDEO_API);
+     const jsonData = await data.json();
+
+     console.log(jsonData);
+     setVideoData(jsonData.items);
+
+  }
+
+
+  useEffect(()=>{
+      getData();
+  },[]);
+
   return (
-    <div className='p-2 m-2 bg-yellow-400 w-full h-full flex flex-wrap'>
+    <div className='p-2 m-2 w-full h-full flex flex-wrap'>
       {
-        videoData.map((ele,indx)=>{
-            return <div className='h-[220px] w-[350px] bg-cyan-300 p-2 m-2'>{ele}</div>
+        videoData.map((ele)=>{
+            return (
+                
+                      <Link to={"/watch?v=" +ele.id} key={ele.id}><VideoCard title={ele.snippet.title} thumbnail={ele.snippet.thumbnails.medium.url}
+                          channelTitle={ele.snippet.channelTitle} 
+                          viewCount={ele.statistics.viewCount/1000}
+                          publishedAt={ele.snippet.publishedAt}
+                          />
+                          </Link>
+              )
         })
       }
     </div>
