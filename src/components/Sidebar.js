@@ -10,7 +10,7 @@ const Sidebar = ()=>{
      if(!isVisible) return null;
 
     return (
-        <div className="p-2  w-48 border-2 overflow-y-scroll h-full">
+        <div className="p-2   border-2  h-full">
 
             
           

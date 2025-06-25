@@ -1,16 +1,68 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggle } from "../utils/Slices/SideBarSlice";
+import { useEffect, useState } from "react";
+import { SEARCH_SUGGESTION_API } from "../utils/contants";
+import { addToCache } from "../utils/Slices/SearchSlice";
+
+
 const Header = ()=>{
 
 
+    //Debouncing code for searchbar
+    const[searchParams, setSearchParams]= useState("");
+    const[searchResult, setSearchResult]= useState([]);
+    const[showSuggestions, setShowSuggestions]= useState(true);
+
+    const cacheList = useSelector(store=>store.search);
+
+    useEffect(()=>{
+
+        const timer= setTimeout(()=>{
+            if(cacheList[searchParams])
+            {
+                setSearchParams(searchParams);
+            }
+            else
+            {
+                getSearchData();
+            }
+        },200);
+
+        return ()=>{
+            clearTimeout(timer);
+        }
+
+    },[searchParams]);
+
+    
 
     const dispatch = useDispatch();
-     
+
+    const handleCache=(searchParams)=>{
+      
+    }
+    
     const handleToggleMenu=()=>{
-        console.log("action done")
-   
         dispatch(toggle());
     }
+
+    const getSearchData=async()=>{
+  
+      
+        const data = await fetch(SEARCH_SUGGESTION_API+searchParams);
+        const jsonData= await data.json();
+
+        console.log("API call made:  "+searchParams);
+        setSearchResult(jsonData[1]);
+
+
+        //update cache
+        dispatch(addToCache({
+            [searchParams]:jsonData[1]
+        })
+    );
+    }
+
 
 
     return (
@@ -27,14 +79,36 @@ const Header = ()=>{
 
                 <h2 className=" text-3xl font-serif font-semibold">RangTube</h2>
             </div>
+
+
             <div className="w-full ml-64 ">
-                <input
-                    type="text"
-                    placeholder="  Search"
-                    className="border w-1/2 p-2 rounded-l-3xl"
-                />
-                <button className="border  p-2   rounded-r-3xl bg-gray-300 w-14">🔍</button>
+                <div>
+                    <input
+                        type="text"
+                        placeholder="  Search"
+                        className="border w-1/2 p-2 rounded-l-3xl"
+                        value={searchParams}
+                        onChange={e=>setSearchParams(e.target.value)}
+                        onFocus={()=>setShowSuggestions(true)}
+                        onBlur={()=>setShowSuggestions(false)}
+                    
+                    />
+                    <button className="border  p-2   rounded-r-3xl bg-gray-300 w-14">🔍</button>
+                </div>
+
+                {showSuggestions && <div className="fixed bg-white shadow-lg rounded-xl w-[563px] ">
+                    <ul>
+                        {
+                            searchResult.map((item,indx)=>{
+                                return <li className="m-1 p-1 hover:bg-slate-100 rounded-lg" key={indx}>🔍  {item}</li>
+                            })  
+                        }
+                    </ul>
+                </div>}
+                
             </div>
+
+         
 
             <div className="flex">
                <img 
