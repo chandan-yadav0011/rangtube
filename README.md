@@ -3,10 +3,10 @@
 <br/>
 <h2>Features</h2>
 <ul>
-<li><b>Redux</b> store for efficiently managing state variables.</li>
+<li><b>Redux store</b> for efficiently managing state variables.</li>
 <li>Used Youtube video list api to fetch live data.</li>
-<li>Used Router to make pages and also done nested routing</li>
-<li>Build a search bar which shows suggestion by using api call and optimized it using Debouncing technique and cache the result</li>
-<li>Builded a comment section with n-level nesting feature</li>
-<li>Builded live chat by doing Api polling and optimized it by caching and limiting the size of array storing the live chats also  builded option to post the chat</li>
+<li>Used <b>React Router</b> to make pages and also done nested routing</li>
+<li>Build a search bar which shows suggestion by using api call and optimized it using <b>Debouncing technique</b> and <b>cache the result</b> to prevent same api call</li>
+<li>Builded a comment section with <b>n-level nesting</b> feature</li>
+<li>Builded <b>live chat</b> by doing <b>Api polling</b> and optimized it by <b>caching</b> and <b>limiting the size of array</b> storing the live chats also  builded option to post the chat</li>
 </ul>
